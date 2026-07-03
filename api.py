@@ -9,6 +9,9 @@ from langchain_chroma import Chroma
 from langchain_community.document_loaders import TextLoader
 from langchain_text_splitters import RecursiveCharacterTextSplitter
 from langchain_core.chat_history import InMemoryChatMessageHistory
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 chat_history = InMemoryChatMessageHistory()
@@ -35,7 +38,7 @@ def load_rag():
     return vectorstore
 
 vectorstore = load_rag()
-llm = ChatGroq(model="llama-3.1-8b-instant", api_key="REMOVED")
+llm = ChatGroq(model="llama-3.1-8b-instant", api_key=os.getenv("GROQ_API_KEY"))
 threshold = 0.6
 
 class ChatRequest(BaseModel):
