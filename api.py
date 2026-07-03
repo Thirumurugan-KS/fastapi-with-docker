@@ -3,7 +3,7 @@ import os
 import shutil
 from pydantic import BaseModel
 from langchain_groq import ChatGroq
-from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_community.embeddings import JinaEmbeddings
 from langchain_core.messages import HumanMessage, SystemMessage
 from langchain_chroma import Chroma
 from langchain_community.document_loaders import TextLoader
@@ -32,11 +32,9 @@ def load_rag():
 
     chunks = splitter.split_documents(all_docs)
 
-    embeddings = HuggingFaceEmbeddings(
-        model_name="all-MiniLM-L6-v2",
-        model_kwargs={"device": "cpu"},
-        encode_kwargs={"normalize_embeddings": True},
-        cache_folder="/tmp/embeddings"
+    embeddings = JinaEmbeddings(
+        model_name="jina-embeddings-v2-base-en",
+        jina_api_key=os.getenv("JINA_API_KEY")
     )
 
     vectorstore = Chroma.from_documents(documents=chunks, embedding=embeddings)
