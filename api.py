@@ -37,7 +37,7 @@ def load_rag():
         model_kwargs={"device": "cpu"},
         encoding_kwargs={"normalize_embeddings": True}
         cache_folder="/tmp/embeddings"
-        )
+    )
 
     vectorstore = Chroma.from_documents(documents=chunks, embedding=embeddings)
     return vectorstore
