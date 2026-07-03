@@ -35,7 +35,7 @@ def load_rag():
     embeddings = HuggingFaceEmbeddings(
         model_name="all-MiniLM-L6-v2",
         model_kwargs={"device": "cpu"},
-        encoding_kwargs={"normalize_embeddings": True}
+        encoding_kwargs={"normalize_embeddings": True},
         cache_folder="/tmp/embeddings"
     )
 
