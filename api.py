@@ -32,7 +32,12 @@ def load_rag():
 
     chunks = splitter.split_documents(all_docs)
 
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    embeddings = HuggingFaceEmbeddings(
+        model_name="all-MiniLM-L6-v2",
+        model_kwargs={"device": "cpu"},
+        encoding_kwargs={"normalize_embeddings": True}
+        cache_folder="/tmp/embeddings"
+        )
 
     vectorstore = Chroma.from_documents(documents=chunks, embedding=embeddings)
     return vectorstore
